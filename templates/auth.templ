@@ -1,0 +1,83 @@
+package templates
+
+templ LoginForm(err string) {
+<div id="login-form" class="bg-gray-900 p-6 rounded-lg shadow-md max-w-md mx-auto text-white">
+    <h2 class="text-2xl font-semibold text-center text-blue-400">Login</h2>
+    
+    if err != "" {
+    <p class="text-red-500 text-sm text-center mt-2">{err}</p>
+    }
+
+    <form hx-post="/login" hx-swap="outerHTML" hx-target="#login-form" method="POST" class="space-y-4 mt-4">
+        <div>
+            <label for="username" class="block font-medium text-gray-300">Username</label>
+            <input type="text" id="username" name="username" required
+                class="w-full p-3 bg-gray-800 text-white border border-gray-600 rounded-md focus:ring-2 focus:ring-blue-500 outline-none transition">
+        </div>
+
+        <div>
+            <label for="password" class="block font-medium text-gray-300">Password</label>
+            <input type="password" id="password" name="password" required
+                class="w-full p-3 bg-gray-800 text-white border border-gray-600 rounded-md focus:ring-2 focus:ring-blue-500 outline-none transition">
+        </div>
+
+        <button type="submit"
+            class="w-full bg-blue-600 text-white font-medium py-3 rounded-md hover:bg-blue-700 transition duration-200">
+            Login
+        </button>
+    </form>
+
+    // <div class="text-center mt-4">
+    //     <button onclick="window.location.href='/codelogin';"
+    //         class="w-full bg-gray-700 hover:bg-gray-600 text-white py-3 rounded-md transition duration-200">
+    //         Login with Email Code
+    //     </button>
+    // </div>
+</div>
+}
+
+templ EmailLoginForm(err string) {
+<div id="code-form" class="bg-gray-900 p-6 rounded-lg shadow-md max-w-md mx-auto text-white">
+    <h2 class="text-2xl font-semibold text-center text-blue-400">Email Login</h2>
+
+    if err != "" {
+    <p class="text-red-500 text-sm text-center mt-2">{err}</p>
+    }
+
+    <form hx-post="/codelogin" hx-swap="outerHTML" hx-target="#code-form" method="POST" class="space-y-4 mt-4">
+        <div>
+            <label for="email" class="block font-medium text-gray-300">Email</label>
+            <input type="email" id="email" name="email" required
+                class="w-full p-3 bg-gray-800 text-white border border-gray-600 rounded-md focus:ring-2 focus:ring-blue-500 outline-none transition">
+        </div>
+
+        <button type="submit"
+            class="w-full bg-blue-600 text-white font-medium py-3 rounded-md hover:bg-blue-700 transition duration-200">
+            Get Code
+        </button>
+    </form>
+</div>
+}
+
+templ VerifyLoginForm(err string) {
+<div id="verify-form" class="bg-gray-900 p-6 rounded-lg shadow-md max-w-md mx-auto text-white">
+    <h2 class="text-2xl font-semibold text-center text-blue-400">Verify Code</h2>
+
+    if err != "" {
+    <p class="text-red-500 text-sm text-center mt-2">{err}</p>
+    }
+
+    <form hx-post="/codeverify" method="POST" class="space-y-4 mt-4">
+        <div>
+            <label for="code" class="block font-medium text-gray-300">Verification Code</label>
+            <input type="text" id="code" name="code" required
+                class="w-full p-3 bg-gray-800 text-white border border-gray-600 rounded-md focus:ring-2 focus:ring-blue-500 outline-none transition">
+        </div>
+
+        <button type="submit"
+            class="w-full bg-blue-600 text-white font-medium py-3 rounded-md hover:bg-blue-700 transition duration-200">
+            Verify
+        </button>
+    </form>
+</div>
+}

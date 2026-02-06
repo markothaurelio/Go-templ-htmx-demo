@@ -1,0 +1,140 @@
+package templates
+
+import (
+    "time"
+    "fmt"
+)
+
+templ header(title string) {
+
+<head>
+  <title>{ title }</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="/static/css/styles.css" />
+  @globalScripts()
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.8/dist/chart.umd.min.js"></script>
+
+  <script src="https://unpkg.com/htmx.org@2.0.4"
+    integrity="sha384-HGfztofotfshcF7+8n44JQL2oJmowVChPTg48S+jvZoztPfvwD79OC/LTtG6dMp+"
+    crossorigin="anonymous"></script>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.0/styles/github-dark.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.0/highlight.min.js"></script>
+  <script>hljs.highlightAll();</script>
+
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <style>
+    #map {
+      height: 500px;
+      width: 100%;
+    }
+  </style>
+
+</head>
+}
+
+templ footer() {
+<footer class="bg-primary-600 p-4 text-white text-center">
+  <p>&copy; {fmt.Sprintf("%d", time.Now().Year())} Go + Templ + HTMX Demo. All rights reserved.</p>
+</footer>
+}
+
+templ nav() {
+<nav class="bg-gray-800 shadow-lg fixed w-full z-20 top-0 left-0 border-b border-gray-700">
+  <div class="max-w-screen-xl flex items-center justify-between mx-auto px-6 py-4">
+    <!-- Logo -->
+    <a href="/" class="text-3xl font-extrabold text-white tracking-wide">
+      Go Web UI Demo
+    </a>
+
+    <!-- Desktop Navigation -->
+    <div class="hidden md:flex space-x-10">
+      <a href="/maps" class="text-gray-300 hover:text-blue-400 transition duration-200">Maps</a>
+      <a href="/about" class="text-gray-300 hover:text-blue-400 transition duration-200">About</a>
+    </div>
+
+    <!-- Mobile Menu Button -->
+    <button id="mobile-menu-button" type="button" class="md:hidden text-gray-300 hover:text-blue-400">
+      <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+      </svg>
+    </button>
+  </div>
+
+  <!-- Mobile Menu -->
+  <div id="mobile-menu" class="hidden md:hidden bg-blue-950 py-4 space-y-3 border-t border-gray-700">
+    <a href="/maps" class="block text-gray-300 hover:text-blue-400 py-2 px-6">Maps</a>
+    <a href="/about" class="block text-gray-300 hover:text-blue-400 py-2 px-6">About</a>
+  </div>
+</nav>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const menuButton = document.getElementById("mobile-menu-button");
+    const mobileMenu = document.getElementById("mobile-menu");
+
+    menuButton.addEventListener("click", function () {
+      // Toggle hidden class
+      mobileMenu.classList.toggle("hidden");
+    });
+  });
+</script>
+}
+
+templ Layout(contents templ.Component, title string) {
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+@header(title)
+
+<body class="flex flex-col min-h-screen bg-gray-900" style="padding-top: 4rem;">
+  @nav()
+  <main class="flex-grow container mx-auto py-6">
+    @contents
+  </main>
+  @footer()
+</body>
+
+</html>
+}
+
+templ Layout_Embedded(contents templ.Component, title string) {
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+@header(title)
+
+<body class="flex flex-col min-h-screen bg-gray-900" style="padding-top: 4rem;">
+  <main class="flex-grow container mx-auto py-6">
+    @contents
+  </main>
+</body>
+
+</html>
+}
+
+templ globalScripts() {
+<script>
+  function initializeMap(container, options) {
+    var mapElement = container.querySelector(".map-instance");
+    if (!mapElement || mapElement.dataset.initialized) return;
+    var randomID = "map-" + Math.random().toString(36).substr(2, 9);
+    mapElement.id = randomID;
+    mapElement.dataset.initialized = "true";
+
+    // Neutral default center (no geography implied)
+    var map = L.map(randomID).setView(options.center || [0, 0], options.zoom || 2);
+
+    // Use a local tile endpoint placeholder (no external provider link)
+    // You can serve tiles from your own static server or swap this in local/dev.
+    L.tileLayer("/tiles/{z}/{x}/{y}.png", {
+      maxZoom: 19,
+      attribution: 'Map tiles: local/demo source'
+    }).addTo(map);
+
+    if (options.onReady) {
+      options.onReady(map);
+    }
+  }
+</script>
+}

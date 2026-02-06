@@ -1,0 +1,65 @@
+package templates
+
+templ About() {
+<main class="bg-gray-900 min-h-screen py-8 px-6 pb-6 text-white flex justify-center items-start">
+    <div class="max-w-4xl w-full bg-blue-950 shadow-xl rounded-lg p-8 md:p-10 space-y-6 pb-0 last:pb-10">
+
+        <!-- Header Section -->
+        <div class="text-center border-b border-gray-700 pb-6">
+            <h1 class="text-5xl font-extrabold text-white">About</h1>
+            <p class="mt-3 text-gray-300 text-xl leading-relaxed">
+                A modern Go web application demonstrating server-driven UI patterns.
+            </p>
+        </div>
+
+        <!-- Purpose Section -->
+        <div>
+            <h2 class="text-3xl font-semibold text-blue-400">What This Project Demonstrates</h2>
+            <p class="mt-3 text-gray-300 text-lg leading-relaxed">
+                This application showcases how Go can be used to build clean, efficient web interfaces using
+                <span class="font-semibold text-white">Templ</span> for type-safe HTML generation,
+                <span class="font-semibold text-white">HTMX</span> for dynamic interactions without heavy client-side JavaScript,
+                and <span class="font-semibold text-white">Tailwind CSS</span> for rapid, consistent styling.
+            </p>
+        </div>
+
+        <!-- Architecture Section -->
+        <div class="border-t border-gray-700 pt-6">
+            <h2 class="text-3xl font-semibold text-blue-400">Architecture & Design</h2>
+            <p class="mt-3 text-gray-300 text-lg leading-relaxed">
+                The project follows a clear separation of concerns, with handlers, services, repositories, and templates
+                organised to keep business logic, data access, and presentation layers cleanly decoupled.
+                Server-rendered HTML is progressively enhanced through targeted HTMX requests.
+            </p>
+        </div>
+
+        <!-- Early Version Notice -->
+        <div class="border-t border-gray-700 pt-6">
+            <h2 class="text-3xl font-semibold text-blue-400">Project Status</h2>
+            <p class="mt-3 text-gray-300 text-lg leading-relaxed">
+                This is an early-stage prototype intended to demonstrate patterns and tooling rather than a finished product.
+                Future iterations may expand features, improve UX, or explore additional performance and security refinements.
+            </p>
+        </div>
+
+        <!-- Data Section -->
+        <div class="border-t border-gray-700 pt-6">
+            <h2 class="text-3xl font-semibold text-blue-400">Data Usage</h2>
+            <p class="mt-3 text-gray-300 text-lg leading-relaxed">
+                Any datasets used are for demonstration purposes only and exist to support visualisation,
+                interaction, and architectural examples within the application.
+            </p>
+        </div>
+
+        <!-- Contact Section -->
+        <div class="border-t border-gray-700 pt-6 text-center">
+            <h2 class="text-3xl font-semibold text-blue-400">Learn More</h2>
+            <p class="mt-3 text-gray-300 text-lg leading-relaxed mb-0">
+                For implementation details, setup instructions, and source code,
+                please refer to the project repository.
+            </p>
+        </div>
+
+    </div>
+</main>
+}

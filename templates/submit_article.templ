@@ -1,0 +1,47 @@
+package templates
+
+
+templ ArticleSubmission() {
+<div id="submit">
+<form hx-post="/submit" hx-target="#submit" hx-swap="innerHTML" method="POST"
+  class="p-6 bg-gray-900 shadow-lg rounded-xl max-w-2xl mx-auto space-y-6 border border-gray-700">
+
+  <!-- Title Field -->
+  <div>
+    <label for="title" class="block text-lg font-semibold text-gray-200 mb-2">Article Title</label>
+    <input type="text" id="title" name="title"
+      class="w-full p-3 bg-gray-800 text-white border border-gray-600 rounded-md focus:ring-2 focus:ring-blue-500 outline-none transition duration-200"
+      placeholder="Enter your article title..." required>
+  </div>
+
+  <!-- Content Field -->
+  <div>
+    <label for="content" class="block text-lg font-semibold text-gray-200 mb-2">Article Content</label>
+    <textarea id="content" name="content" rows="10" 
+      class="w-full p-3 bg-gray-800 text-white border border-gray-600 rounded-md focus:ring-2 focus:ring-blue-500 outline-none transition duration-200 resize-none"
+      placeholder="Write your article content here... (Markdown supported)" required></textarea>
+  </div>
+
+  // <!-- Tags Field -->
+  // <div>
+  //   <label for="tags" class="block text-lg font-semibold text-gray-200 mb-2">Tags</label>
+  //   <input type="text" id="tags" name="tags"
+  //     class="w-full p-3 bg-gray-800 text-white border border-gray-600 rounded-md focus:ring-2 focus:ring-blue-500 outline-none transition duration-200"
+  //     placeholder="e.g., technology, AI, research">
+  //   <p class="text-sm text-gray-400 mt-2">Separate tags with commas.</p>
+  // </div>
+
+  <!-- Submit Button (Properly Sized) -->
+<button type="submit"
+  class="w-auto px-4 py-2 bg-blue-600 text-white font-medium rounded-md hover:bg-blue-700 active:bg-blue-800 transition duration-200 flex items-center justify-center">
+  <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"
+    xmlns="http://www.w3.org/2000/svg">
+    <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path>
+  </svg>
+  Submit
+</button>
+
+</form>
+
+</div>
+}

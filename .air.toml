@@ -1,0 +1,33 @@
+root = "."
+tmp_dir = "tmp"
+
+[build]
+bin = "./tmp/main"
+cmd = "templ generate && npx @tailwindcss/cli -i assets/css/main.css -o static/css/styles.css && go build -o ./tmp/main ."
+delay = 1000
+exclude_dir = ["tmp", "node_modules", "vendor"]  # Exclude directories that don't need monitoring
+exclude_file = []
+exclude_regex = [".*_templ.go", "_test.go"]  # Exclude test and generated files
+exclude_unchanged = false
+follow_symlink = false
+full_bin = ""
+include_dir = ["templates", "assets", "handlers", "models", "repositories", "services"]  # Relevant directories to watch
+include_file = ["main.go"]
+include_ext = ["go", "templ", "html", "css"]  # Extensions to monitor
+kill_delay = "0s"
+log = "build-errors.log"
+send_interrupt = false
+stop_on_error = true
+
+[color]
+app = ""
+build = "yellow"
+main = "magenta"
+runner = "green"
+watcher = "cyan"
+
+[log]
+time = true  # Enable timestamps for logs to help with debugging
+
+[misc]
+clean_on_exit = true  # Clean temporary files on exit

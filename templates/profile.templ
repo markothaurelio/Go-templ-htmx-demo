@@ -1,0 +1,38 @@
+package templates
+
+import "[repo]/news_article_app/models"
+
+templ ProfilePage(user models.User) {
+<div class="flex justify-center items-center h-screen bg-gray-900 text-white">
+
+    <div class="bg-gray-800 p-8 rounded-lg shadow-lg max-w-md w-full text-center">
+        
+        <h1 class="text-3xl font-extrabold text-white mb-6">Profile</h1>
+
+        if ctx.Value("authenticated") == false {
+            <p class="text-red-500 text-lg font-semibold">You must be logged in to view this page.</p>
+            <a href="/login" class="mt-4 inline-block bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-semibold transition">
+                Login
+            </a>
+        } else {
+            <!-- User Profile Section -->
+            <div class="profile-details space-y-4">
+                <div class="flex flex-col items-center">
+                    <!-- Profile Image Placeholder -->
+                    <p class="text-xl font-bold mt-4">{user.Name}</p>
+                </div>
+
+                <!-- Actions -->
+                <div class="mt-6 flex flex-col gap-3">
+                    <a href="/submit" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-semibold transition">
+                        ✍️ Submit Content
+                    </a>
+                    <a href="/logout" class="bg-red-600 hover:bg-red-700 text-white px-6 py-2 rounded-lg font-semibold transition">
+                        🚪 Logout
+                    </a>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+}

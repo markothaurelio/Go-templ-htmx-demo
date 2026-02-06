@@ -1,0 +1,74 @@
+package templates
+
+import (
+    "[repo]/news_article_app/models"
+    "time"
+    "fmt"
+)
+
+templ ArticleList(articles []models.Article) {
+<div class="bg-blue-950 p-8 rounded-lg shadow-lg">
+    <h2 class="text-3xl font-bold text-white mb-6">Articles</h2>
+    <ul role="list" class="space-y-6">
+        for _, article := range articles {
+        <li class="flex flex-col md:flex-row justify-between gap-6 p-6 bg-gray-800 rounded-lg shadow-md hover:bg-gray-700 transition duration-200">
+
+            <!-- Article Details -->
+            <div class="flex-auto">
+                <a href={templ.SafeURL(fmt.Sprintf("/analyses/%d", article.ID))}
+                    class="text-xl font-semibold text-blue-400 hover:underline">
+                    {article.Title}
+                </a>
+                <p class="mt-2 text-sm text-gray-300 line-clamp-2">
+                    @templ.Raw("fix this")
+                </p>
+            </div>
+
+            <!-- Metadata & Actions -->
+            <div class="flex-shrink-0 text-right md:text-left space-y-2">
+                <p class="text-sm text-gray-300">
+                    <span class="font-medium text-gray-200">Author:</span> Fred
+                </p>
+                <p class="text-xs text-gray-400">
+                    Published: <time datetime={article.CreatedAt.Format(time.RFC3339)}>
+                        {article.CreatedAt.Format("Jan 02, 2006")}
+                    </time>
+                </p>
+
+                <!-- Delete Button (Only for Admins) -->
+                if ctx.Value("user").(models.User).Role == "admin" {
+                <button hx-delete={"/analyses/" + fmt.Sprint(article.ID) + "/delete"}
+                    hx-confirm="Are you sure you want to delete this article?"
+                    hx-target="closest li"
+                    hx-swap="outerHTML swap:1s"
+                    class="mt-2 bg-red-600 text-white text-xs font-medium py-1.5 px-4 rounded hover:bg-red-700 transition">
+                    Delete
+                </button>
+                }
+            </div>
+        </li>
+        }
+    </ul>
+</div>
+}
+
+templ ArticlePage(article models.Article) {
+<div class="bg-gray-900 flex justify-center px-6 text-white">
+    <article class="w-full max-w-5xl bg-gray-800 p-12 rounded-lg shadow-lg mx-auto">
+        <header class="mb-8 border-b border-gray-700 pb-6">
+            <h1 class="text-4xl font-bold text-white leading-tight">{article.Title}</h1>
+            <div class="flex flex-wrap justify-between text-sm text-gray-400 mt-3">
+                <p><span class="font-medium text-gray-200">Author:</span> {}</p>
+                <p>Published on <time datetime={article.CreatedAt.Format(time.RFC3339)}>
+                    {article.CreatedAt.Format("Jan 02, 2006")}
+                </time></p>
+            </div>
+        </header>
+
+        <div class="prose prose-invert prose-lg max-w-none">
+            @templ.Raw(article.Content) <!-- ✅ Ensure this is raw HTML -->
+        </div>
+
+    </article>
+</div>
+}

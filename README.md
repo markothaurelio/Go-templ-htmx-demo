@@ -1,6 +1,6 @@
 # Go HTMX Clean Architecture
 
-A structured web application (with basic new article functionality) built with **Go**, **HTMX**, **Templ**, and
+A structured web application (with basic news article functionality) built with **Go**, **HTMX**, **Templ**, and
 **PostgreSQL**, organized using clean architecture principles.
 
 This project demonstrates layered backend design, authentication
